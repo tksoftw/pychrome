@@ -120,6 +120,8 @@ class Tab(object):
                 self._ws.settimeout(1)
                 message_json = self._ws.recv()
                 message = json.loads(message_json)
+            except json.decoder.JSONDecodeError: # tab closed
+                continue
             except websocket.WebSocketTimeoutException:
                 continue
             except (websocket.WebSocketException, OSError):
